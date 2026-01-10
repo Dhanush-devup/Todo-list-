@@ -1,0 +1,5 @@
+﻿flask-auth/
+instance/
+*.db
+__pycache__/
+.env
