@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 {% block body%}
 <div id="view-{{task.id}}">
-<h1>{{task.title}}</h1>
+<h1>Task Title : {{task.title}}</h1>
+<p>Task description:</p>
 <p>{{task.description}}</p>
 {% if task.schedule_at %}
     <p>
@@ -19,7 +20,7 @@
 {% endif %}
 </div>
 
-<button onclick="enableEdit( {{ task.id }} )" >Edit</button>
+<button type="submit" onclick="enableEdit( {{ task.id }} )" >Edit</button>
 
 <form id="edit-{{ task.id }}" action="/task/{{task.id}}/update" method="post" style="display:none;">
         <label>Title</label>

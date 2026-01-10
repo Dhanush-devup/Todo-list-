@@ -3,6 +3,7 @@
 <h1>Create a Task</h1>
 <br>
 <form action="/create" method="post">
+    <label>Task Title</label>
     <input autocomplete="off" type="text" name="title" placeholder="Task title" >
 
     <label>Timer duration</label>
@@ -10,9 +11,9 @@
 
     <label>Schedule date & time</label>
     <input type="datetime-local" name="schedule_at">
-    <br></br>
+   <label>Task description</label>
     <input autocomplete="off" type="text" name="description" placeholder="Task description" >
-    <br></br>
+    
     <button type="submit" >Create</button>
     
 

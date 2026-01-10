@@ -49,7 +49,6 @@ class Task(db.Model):
 
 
 
-
 #routes
 @app.route("/")
 def home():
