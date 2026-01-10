@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block body%}
+<h2>Finished Tasks 🎉</h2>
+
+<a href="/dashboard">← Back to Dashboard</a>
+
+{% for task in tasks %}
+  <div class="task completed">
+    <h3>{{ task.title }}</h3>
+    <p>{{ task.description }}</p>
+  </div>
+{% else %}
+  <p>No finished tasks yet.</p>
+{% endfor %}
+
+
+{% endblock %}

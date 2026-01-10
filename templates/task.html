@@ -47,6 +47,13 @@
       Cancel
     </button>
   </form>
+  <form action="/delete/{{ task.id }}" method="post"
+      onsubmit="return confirm('Are you sure you want to delete this task?');">
+  <button class="delete">Delete task</button>
+</form>
+<form action="/finish/{{task.id}}" method="post">
+    <button type="submit" name="completed" >Mark as completed</button>
+</form>
 
 
 <script>

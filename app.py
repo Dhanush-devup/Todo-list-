@@ -44,6 +44,8 @@ class Task(db.Model):
     schedule_at = db.Column(db.DateTime)
 
     user_id = db.Column(db.Integer,db.ForeignKey("user.id"),nullable=False)
+    completed = db.Column(db.Boolean, default=False, nullable=False)
+
 
 
 
@@ -106,7 +108,7 @@ def dashboard():
         return redirect("/login")
     username=session["username"]
     user=User.query.filter_by(username=username).first()
-    tasks=Task.query.filter_by(user_id=user.id).order_by(nullslast(Task.schedule_at)).all()
+    tasks=Task.query.filter_by(user_id=user.id,completed=False).order_by(nullslast(Task.schedule_at)).all()
     return render_template("dashboard.html",name=user.name,tasks=tasks)
 
 @app.route("/create", methods=["GET", "POST"])
@@ -162,8 +164,40 @@ def update(task_id):
         db.session.commit()
     return redirect("/dashboard")
 
+@app.route("/delete/<int:task_id>",methods=["POST"])
+def  delete(task_id):
+    if "username" not in session:
+        return redirect("/login")
+    task = Task.query.get(task_id)
+    db.session.delete(task)
+    db.session.commit()
+    return redirect("/dashboard")
+
+@app.route("/finish/<int:task_id>",methods=["POST"])
+def finish(task_id):
+    task=Task.query.get(task_id)
+    task.completed=True
+    db.session.commit()
+    return redirect("/dashboard")
+
+@app.route("/finished")
+def finished_tasks():
+    if "username" not in session:
+        return redirect("/login")
+
+    user = User.query.filter_by(username=session["username"]).first()
+
+    tasks = Task.query.filter_by(user_id=user.id, completed=True).order_by(nullslast(Task.schedule_at)).all()
+
+    return render_template("finished.html",name=user.name,tasks=tasks)
+
+
+
+
 if __name__ in "__main__":
     with app.app_context():
         db.create_all()
+
+
 
     app.run(debug=True)
