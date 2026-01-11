@@ -19,8 +19,8 @@ A simple To-Do List web application built using **Flask** and **SQLite** that al
 ## 🚀 How to Run
 
 ```bash
-git clone <your-repository-url>
-cd <project-folder>
+git clone https://github.com/Dhanush-devup/Todo-list-
+cd Todo-list-
 python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
