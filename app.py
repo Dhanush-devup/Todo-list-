@@ -116,24 +116,25 @@ def create():
         return redirect("/login")
     if request.method == "POST":
         title = request.form.get("title")
-        description = request.form.get("description")
-        timer_duration = request.form.get("timer_duration")
-        schedule_at_str = request.form.get("schedule_at")
-        schedule_at = None
-        if schedule_at_str:
-            schedule_at = datetime.strptime(schedule_at_str,"%Y-%m-%dT%H:%M")
-        task = Task(
-            title=title,
-            description=description,
-            timer_duration=timer_duration,
-            schedule_at=schedule_at,
-            user_id=User.query.filter_by(
-                username=session["username"]
-            ).first().id
-        )
-        db.session.add(task)
-        db.session.commit()
-        return redirect("/dashboard")  
+        if  title:
+            description = request.form.get("description")
+            timer_duration = request.form.get("timer_duration")
+            schedule_at_str = request.form.get("schedule_at")
+            schedule_at = None
+            if schedule_at_str:
+                schedule_at = datetime.strptime(schedule_at_str,"%Y-%m-%dT%H:%M")
+            task = Task(
+                title=title,
+                description=description,
+                timer_duration=timer_duration,
+                schedule_at=schedule_at,
+                user_id=User.query.filter_by(
+                    username=session["username"]
+                ).first().id
+            )
+            db.session.add(task)
+            db.session.commit()
+            return redirect("/dashboard")  
     return render_template("create.html")
 
 @app.route("/task/<int:task_id>")
